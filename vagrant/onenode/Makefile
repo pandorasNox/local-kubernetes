@@ -25,6 +25,10 @@ provision: ##@setup spins up a single node kubernetes cluster in vagrant
 destroy: ##@setup if exists, it stops and delets the single node kubernetes instance
 	vagrant destroy monovagk8s
 
+.PHONY: stop
+stop: ##@setup stops/paused the monon kubernetes node
+	vagrant halt monovagk8s
+
 .PHONY: login
 login:
 	vagrant ssh monovagk8s
