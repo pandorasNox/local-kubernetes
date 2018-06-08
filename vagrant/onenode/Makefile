@@ -20,6 +20,8 @@ help: ##@other Show this help.
 .PHONY: provision
 provision: ##@setup spins up a single node kubernetes cluster in vagrant
 	vagrant up monovagk8s
+	vagrant ssh monovagk8s -c "kubectl apply -f https://cloud.weave.works/k8s/net?k8s-version=$$(kubectl version | base64 | tr -d '\n')"
+	vagrant ssh monovagk8s -c "kubectl taint nodes --all node-role.kubernetes.io/master-"
 
 .PHONY: destroy
 destroy: ##@setup if exists, it stops and delets the single node kubernetes instance
