@@ -20,6 +20,7 @@ help: ##@other Show this help.
 .PHONY: provision
 provision: ##@setup spins up a single node kubernetes cluster in vagrant
 	vagrant up monovagk8s
+	#./etc/etc_hosts.sh $(vagrant ssh -c "echo \$NODE_IP") local.movaku
 
 .PHONY: destroy
 destroy: ##@setup if exists, it stops and delets the single node kubernetes instance
