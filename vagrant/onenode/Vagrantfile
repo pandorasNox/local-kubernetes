@@ -2,6 +2,21 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# env provisioning script
+$envScript = <<-SCRIPT
+echo ' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+echo "  Env provisioning"
+echo ' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+echo "export NODE_IP=$NODE_IP" >> /home/vagrant/.profile
+
+echo ' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+echo '  Done  '
+echo ' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+echo ' '
+
+SCRIPT
+
 # swapoff provisioning script
 $swapoffScript = <<-SCRIPT
 
@@ -100,6 +115,7 @@ Vagrant.configure("2") do |config|
 
     # Configures provisioners.  
     config.vm.provision "docker"
+    config.vm.provision :shell, inline: $envScript, env: {"NODE_IP" => $node_ip}
     config.vm.provision :shell, inline: $swapoffScript, :run => 'always'
     config.vm.provision :shell, :path => "etc/install-dev-tools.sh"
     config.vm.provision :shell, inline: $script, env: {"NODE_IP" => $node_ip}
