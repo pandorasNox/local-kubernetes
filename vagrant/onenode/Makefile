@@ -33,3 +33,7 @@ stop: ##@setup stops/paused the monon kubernetes node
 .PHONY: login
 login:
 	vagrant ssh monovagk8s
+
+.PHONY: system-requirements-check
+system-requirements-check: ##@setup checks system for required dependencies
+	./etc/system-requirements-check.sh
