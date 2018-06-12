@@ -89,6 +89,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box_url = "https://app.vagrantup.com/bento/boxes/ubuntu-16.04"
   # Specify your hostname if you like
   # config.vm.hostname = "name"
 

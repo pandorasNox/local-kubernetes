@@ -1,9 +1,17 @@
 
 ## TODO
-- handle certs
+- handle certs (done via kubeadm ?!)
     - create them via ansible and put them on the node
     - OR creat them during node cretion and pull them from the node
     - needed for the docker container in `make cli`
+- cp ssh + kubernetes certificates from vagrant to host
+    - via vagrant
+    - via ssh ???
+    - where?
+- make provision vs make setup
+    - write etc host file with IP and std hostname
+- add ingress
+- add docker registry
 
 #### resources
 - https://medium.com/@lizrice/kubernetes-in-vagrant-with-kubeadm-21979ded6c63

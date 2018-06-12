@@ -20,11 +20,13 @@ help: ##@other Show this help.
 .PHONY: provision
 provision: ##@setup spins up a single node kubernetes cluster in vagrant
 	vagrant up monovagk8s
+	./etc/copy_kube_conf.sh
 	#./etc/etc_hosts.sh $(vagrant ssh -c "echo \$NODE_IP") local.movaku
 
 .PHONY: destroy
 destroy: ##@setup if exists, it stops and delets the single node kubernetes instance
 	vagrant destroy monovagk8s
+	rm -rf kubernetes/.kube
 
 .PHONY: stop
 stop: ##@setup stops/paused the monon kubernetes node
@@ -33,7 +35,14 @@ stop: ##@setup stops/paused the monon kubernetes node
 .PHONY: login
 login:
 	vagrant ssh monovagk8s
+	# ssh -l vagrant 172.17.8.201 -i .vagrant/machines/monovagk8s/virtualbox/private_key
 
 .PHONY: system-requirements-check
 system-requirements-check: ##@setup checks system for required dependencies
 	./etc/system-requirements-check.sh
+
+
+# copy stuff
+# scp -P 2222 vagrant@127.0.0.1:/home/vagrant/devstack/local.conf .
+# vagrant ssh -c "sudo cat /home/vagrant/devstack/local.conf" > local.conf
+# scp -i .vagrant/machines/monovagk8s/virtualbox/private_key vagrant@172.17.8.201:./test .
