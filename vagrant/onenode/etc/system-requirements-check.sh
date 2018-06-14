@@ -17,3 +17,4 @@ function searchFor {
 
 searchFor docker
 searchFor vagrant
+searchFor kubectl
