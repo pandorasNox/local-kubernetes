@@ -5,6 +5,7 @@
 - make provision vs make setup
     - write etc host file with IP and std hostname
 - add ingress
+- add workflow / examples (build local cont => push via reg, share docker env )
 
 ## room for improvement
 - handle certs (done via kubeadm ?!)
