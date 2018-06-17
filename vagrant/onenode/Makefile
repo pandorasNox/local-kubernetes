@@ -10,6 +10,9 @@ provision: ##@setup spins up a single node kubernetes cluster in vagrant
 	vagrant up monovagk8s
 	./etc/copy_kube_conf.sh
 	#./etc/etc_hosts.sh $(vagrant ssh -c "echo \$NODE_IP") local.movaku
+.PHONY: update
+update: ##@setup updates the vagrant box
+	vagrant box update
 
 .PHONY: prep-kubectl
 prep-kubectl: ##@setup gets and adapts the kube config for kubectl
@@ -33,6 +36,9 @@ login: ##@util log's you into the vagrant node
 sys-req-check: ##@setup checks system for required dependencies
 	./etc/system-requirements-check.sh
 
+.PHONY: status
+status: ##@info get vagrant status
+	vagrant global-status
 
 # If the first argument is "run"...
 ifeq (ku,$(firstword $(MAKECMDGOALS)))
@@ -50,3 +56,7 @@ ku: ##@util kubectl wrap | usage `make ku -- get po --all-namespaces`
 # vagrant ssh -c "sudo cat /home/vagrant/devstack/local.conf" > local.conf
 # scp -i .vagrant/machines/monovagk8s/virtualbox/private_key vagrant@172.17.8.201:./test .
 # kubectl config set-cluster kubernetes --server=https://172.17.8.201:6443
+
+# .PHONY: baz
+# baz:
+# 	echo => $(filter-out $@,$(MAKECMDGOALS))
