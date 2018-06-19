@@ -18,6 +18,12 @@ update: ##@setup updates the vagrant box
 prep-kubectl: ##@setup gets and adapts the kube config for kubectl
 	./etc/copy_kube_conf.sh
 
+.PHONY: setup
+setup:
+	$(MAKE) provision
+	$(MAKE) prep-kubectl
+	$(MAKE) ku -- apply -f kubernetes/persistentVolume
+
 .PHONY: destroy
 destroy: ##@setup destroys the single node vagrant kubernetes cluster
 	vagrant destroy monovagk8s
