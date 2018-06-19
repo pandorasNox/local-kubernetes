@@ -1,10 +1,12 @@
 
 ## TODO
-- persistentVolume
+- persistentVolume (80% done)
+- add ingress
 - add docker registry
+    - also write etc host file for docker-registry domain
+        - check out https://github.com/cbednarski/hostess
 - make provision vs make setup
     - write etc host file with IP and std hostname
-- add ingress
 - add workflow / examples (build local cont => push via reg, share docker env )
 
 ## room for improvement
