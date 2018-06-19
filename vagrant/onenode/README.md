@@ -4,6 +4,7 @@
 - add ingress
 - add docker registry
     - also write etc host file for docker-registry domain
+        - check out https://github.com/cbednarski/hostess
 - make provision vs make setup
     - write etc host file with IP and std hostname
 
