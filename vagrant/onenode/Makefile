@@ -19,7 +19,7 @@ prep-kubectl: ##@setup gets and adapts the kube config for kubectl
 	./etc/copy_kube_conf.sh
 
 .PHONY: setup
-setup:
+setup: ##@setup provisions the single kubernetes node and prepares local env
 	$(MAKE) provision
 	$(MAKE) prep-kubectl
 	$(MAKE) ku -- apply -f kubernetes/persistentVolume

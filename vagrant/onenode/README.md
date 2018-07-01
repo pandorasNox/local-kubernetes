@@ -7,7 +7,7 @@
         - check out https://github.com/cbednarski/hostess
 - make provision vs make setup
     - write etc host file with IP and std hostname
-- add workflow / examples (build local cont => push via reg, share docker env )
+- add workflow / examples (build local cont => push via registry, share docker env )
 
 ## room for improvement
 - handle certs (done via kubeadm ?!)
