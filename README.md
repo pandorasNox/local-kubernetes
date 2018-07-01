@@ -1,6 +1,11 @@
 # local-kubernetes
 evaluation of local kubernetes setups
 
+## currently working
+- vagrant
+  - single node cluster
+- kubeadm-dind-cluster
+
 #### check out
 - minikube (mac / linux ~ --vm-driver=none and otzher )
 - vagrant (mac / linux)
