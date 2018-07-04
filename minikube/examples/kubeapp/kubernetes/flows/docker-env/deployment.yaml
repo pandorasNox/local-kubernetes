@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeapp-deploy
+  namespace: kubeapp
+  labels:
+    app: kubeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubeapp
+  template:
+    metadata:
+      labels:
+        app: kubeapp
+    spec:
+      containers:
+      - name: node
+        image:  kubeapp:v1
+        ports:
+        - containerPort: 3000

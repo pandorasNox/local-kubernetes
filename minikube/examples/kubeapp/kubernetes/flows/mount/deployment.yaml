@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeapp-deploy
+  namespace: kubeapp
+  labels:
+    app: kubeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubeapp
+  template:
+    metadata:
+      labels:
+        app: kubeapp
+    spec:
+      containers:
+      - name: node
+        image:  node:8.11.3
+        # command: ["sh"]
+        # args: ["-c", "'cd /source; npm install; npm run dev;'"]
+        command:
+          - sh
+        args:
+          - -c
+          # - "sleep 10000"
+          - "yarn install --no-lockfile; yarn run dev"
+        ports:
+        - containerPort: 3000
+        workingDir: "/source"
+        volumeMounts:
+        - mountPath: "/source"
+          name: app-source
+      # - name: httpserver
+      #   image: nginx:1.13-alpine
+      #   ports:
+      #   - containerPort: 80
+      #   workingDir: "/source"
+      #   volumeMounts:
+      #   - name: app-source
+      #     mountPath: "/source"
+      #   - name: nginx-conf
+      #     mountPath: "/etc/nginx/conf.d"
+      volumes:
+      - name: app-source
+        hostPath:
+          path: /kubeapp
+          type: Directory
+      # - name: nginx-conf
+      #   hostPath:
+      #     path: /host-timescreemer/kubernetes/container/httpserver/nginx/conf
+      #     type: Directory
+      # - name: nginx-logs
+      #   hostPath:
+      #     path: /Users/tino/dev/repos/pandorasnox/presentations/00-local-kubernetes-showcase/timescreemer/docker/httpserver/nginx/logs
+      #     type: Directory

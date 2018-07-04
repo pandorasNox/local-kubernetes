@@ -1,0 +1,13 @@
+{
+  "name": "kubeapp",
+  "version": "0.0.1",
+  "description": "simple Node.js app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --legacy-watch --debug=5858 ./index.js"
+  },
+  "devDependencies": {
+    "nodemon": "1.17.5"
+  }
+}
