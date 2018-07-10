@@ -12,6 +12,10 @@ KUBECTL ?= kubectl
 install: ##@setup downlaods and changes rights to minikube setup shell file
 	./hack/minikube-linux-install.sh
 
+.PHONY: context
+context: ##@setup gets and adapts the kube config for kubectl
+	$(KUBECTL) config use-context minikube
+
 # If the first argument is "run"...
 ifeq (do,$(firstword $(MAKECMDGOALS)))
   # use the rest as arguments for "run"

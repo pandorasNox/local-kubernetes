@@ -22,15 +22,15 @@ provision: ##@setup spins up a X node kubernetes cluster in Y
 pod-network:
 	$(KUBECTL) apply -f https://cloud.weave.works/k8s/net?k8s-version=$(shell KUBECTL version | base64 | tr -d '\n')
 
-.PHONY: prep-kubectl
-prep-kubectl: ##@setup gets and adapts the kube config for kubectl
-	# ./etc/copy_kube_conf.sh
+.PHONY: context
+context: ##@setup gets and adapts the kube config for kubectl
+	$(KUBECTL) config use-context dind
 
 .PHONY: setup
 setup: ##@setup provisions the X kubernetes node and prepares local env
 	$(MAKE) provision
 	./.install/dind-cluster-v1.10.sh up
-	# $(MAKE) prep-kubectl
+	# $(MAKE) context
 	# $(MAKE) ku -- apply -f kubernetes/persistentVolume
 
 .PHONY: start
