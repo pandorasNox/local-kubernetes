@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+  namespace: docker-registry
+spec:
+  clusterIP: 10.96.0.5
+  ports:
+    - name: http
+      port: 80
+      targetPort: registry
+    - name: https
+      port: 443
+      targetPort: registry
+    - name: registry
+      port: 5000
+      targetPort: registry
+  selector:
+    name: registry

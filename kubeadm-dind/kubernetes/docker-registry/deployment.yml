@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: registry
+  namespace: docker-registry
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: registry
+        readonly: "false"
+    spec:
+      containers:
+      - name: registry
+        image: registry:2.6.2
+        resources:
+          limits:
+            cpu: 200m
+            memory: 200Mi
+        env:
+        - name: REGISTRY_HTTP_ADDR
+          value: :5000
+        - name: REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY
+          value: /var/lib/registry
+        # - name: REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR
+        #   value: redis
+        # - name: REGISTRY_REDIS_ADDR
+        #   value: redis:6379
+        - name: REGISTRY_STORAGE_DELETE_ENABLED
+          value: "true"
+        volumeMounts:
+        - name: image-store
+          mountPath: /var/lib/registry
+        ports:
+        - containerPort: 5000
+          name: registry
+          protocol: TCP
+      # volumes:
+      # - name: image-store
+      #   persistentVolumeClaim:
+      #     claimName: registry
+      volumes:
+      - name: image-store #test-volume
+        hostPath:
+          # directory location on host
+          path: /tmp #/data
+          # this field is optional
+          type: Directory
