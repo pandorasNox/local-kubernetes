@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: in-cluster
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: a-svc
+  namespace: in-cluster
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx-template
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: b-svc
+  namespace: in-cluster
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: nginx-template
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: in-cluster-deploy
+  namespace: in-cluster
+spec:
+  selector:
+    matchLabels:
+      app: nginx-template
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-template
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dev-tools
+spec:
+  containers:
+  - name: dev
+    image: ubuntu:18.10
+    command: ["/bin/sh"]
+    args: ["-c", "apt-get update && apt-get install -y curl; sleep 10000;"]

@@ -1,0 +1,12 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dev-tools
+spec:
+  containers:
+  - name: dev
+    image: ubuntu:18.10
+    args:
+    - sleep
+    - "1000000"
