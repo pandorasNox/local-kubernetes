@@ -4,6 +4,7 @@ based on [kubeadm-dind-cluster](https://github.com/kubernetes-sigs/kubeadm-dind-
 
 ## cheat-sheet
 - `KUBE_EDITOR="nano" kubectl edit clusterrole kube-scheduler`
+- `KUBE_EDITOR="nano" kubectl edit clusterrole system:kube-scheduler`
 - `KUBE_EDITOR="nano" kubectl edit pod annotation-second-scheduler`
 
 ## example

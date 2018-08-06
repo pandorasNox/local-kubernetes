@@ -13,20 +13,24 @@ install: ##@setup downlaods and changes rights to minikube setup shell file
 	./hack/minikube-linux-install.sh
 
 .PHONY: start
-start: ##dev (re)starts the minikube cluster
+start: ##@dev (re)starts the minikube cluster
 	minikube start
 
 .PHONY: stop
-stop: ##dev stops the minikube cluster
+stop: ##@dev stops the minikube cluster
 	minikube stop
 
 .PHONY: destroy
-destroy: ##dev deletes the minikube cluster
+destroy: ##@dev deletes the minikube cluster
 	minikube delete
 
 .PHONY: status
-status: ##status displays the minikube status
+status: ##@status displays the minikube status
 	minikube status
+
+.PHONY: deploy
+deploy: ##@setup deploy basic addons
+	$(KUBECTL) apply -f kubernetes/local-storage.yaml
 
 .PHONY: context
 context: ##@setup gets and adapts the kube config for kubectl
