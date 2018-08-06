@@ -28,9 +28,20 @@ destroy: ##@dev deletes the minikube cluster
 status: ##@status displays the minikube status
 	minikube status
 
+.PHONY: addons
+addons: ##@setup enables some default addons like ingress
+	minikube addons enable freshpod
+	minikube addons enable ingress
+
+.PHONY: addon-local-persistent-volume
+addon-local-persistent-volume: ##@setup provides a local PersistentVolume
+	minikube ssh "mkdir -p /tmp/data/pv-1"
+	$(KUBECTL) apply -f addons/local-storage.yaml
+
 .PHONY: deploy
 deploy: ##@setup deploy basic addons
-	$(KUBECTL) apply -f kubernetes/local-storage.yaml
+	$(MAKE) addons
+	$(MAKE) addon-local-persistent-volume
 
 .PHONY: context
 context: ##@setup gets and adapts the kube config for kubectl
